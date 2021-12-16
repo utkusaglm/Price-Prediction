@@ -9,3 +9,4 @@ TAG=["data_in"]
 @router.get("/service_ok", tags = TAG, status_code=status.HTTP_200_OK)
 async def get_measurement():
     return "ok"
+
