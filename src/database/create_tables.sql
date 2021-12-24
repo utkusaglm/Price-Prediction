@@ -1,10 +1,13 @@
-CREATE Table CRYPTO(
-    stock_name TEXT NOT NULL,
+CREATE DATABASE prices;
+CREATE TABLE assets(
+ 	name TEXT NOT NULL,
     date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    High NUMERIC NOT NULL, 
+    Open NUMERIC NOT NULL, 
+    High NUMERIC NOT NULL,
     Low NUMERIC NOT NULL,
-    Close NUMERIC NOT NULL,
-    Adj_close NUMERIC NOT NULL, 
-    Volume NUMERIC NOT NULL,
-    PRIMARY KEY (stock_name, date)
-);
+    Close NUMERIC NOT NULL, 
+	AdjClose NUMERIC NOT NULL, 
+	Volume NUMERIC NOT NULL,
+	PRIMARY KEY (name, date))
+	;
+	
