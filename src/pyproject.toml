@@ -16,6 +16,8 @@ asyncio = "^3.4.3"
 SQLAlchemy = "^1.4.28"
 yfinance = "^0.1.67"
 ipdb = "^0.13.9"
+matplotlib = "^3.5.1"
+sklearn = "^0.0"
 
 [tool.poetry.dev-dependencies]
 

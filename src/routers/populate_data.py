@@ -1,5 +1,6 @@
 import time
 import numpy as np
+from requests.sessions import InvalidSchema
 import yfinance as yf
 import time
 import datetime
@@ -31,65 +32,62 @@ cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 engine = create_engine(f'postgresql://{config.DB_USER}:{config.DB_PASS}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}')
 
 TODAY = time.time() 
-INTERVAL = '1m'
+INTERVAL = '1d'
+
 
 def get_data(name,st,et,interval):
     return yf.download(name, start= st, end= et , interval=interval)
 
 def insert_data():
     global TODAY,INTERVAL,engine,cursor
-    #CHECK IF THE LAST DATA
     cursor.execute("""
-    	select exists(select 1 from assets);
-        """)
-    fetched= cursor.fetchone()
+    select exists(select 1 from assets);             
+    """   
+    )
+    fetched =cursor.fetchone()
     if not fetched[0]:
         for asset in ASSETS:
-         start = TODAY - 2505600 #29d
-         end = start + 604800 # 7d
-         print(asset)
-         while end<TODAY:
-            start_datetime =datetime.datetime.fromtimestamp(start).strftime('%Y-%m-%d')
-            end_datetime=datetime.datetime.fromtimestamp(end).strftime('%Y-%m-%d')
-            data =get_data(asset,start_datetime,end_datetime,INTERVAL)
-            data["name"] = asset
-            data = data.rename(columns={'Open': 'open','High': 'high', 'Low': 'low','Close': 'close', 'Adj Close': 'adjclose','Volume': 'volume'})
-            print(data)
-            data ['date'] = data.index
-            data.to_sql('assets',engine,if_exists='append',index=False)
-            start += 604800 
-            end += 604800
-         print("*************************************************************************")
-         
-    cursor.execute("""
-    	SELECT extract(epoch from date) as last_date
-		FROM assets
-		ORDER BY date DESC 
-		LIMIT 1;
-        """)
-    fetched= cursor.fetchone()
-    fetched_control = fetched[0]+604800
-    if fetched_control<TODAY:
-        for asset in ASSETS:
-            start = TODAY - 2505600 #29d
-            end = start + 604800 # 7d
+            start = TODAY - 31104000 #360d
+            end = start+ 604800 #7d
             print(asset)
             while end<TODAY:
-                start_datetime =datetime.datetime.fromtimestamp(start).strftime('%Y-%m-%d')
+                start_datetime=datetime.datetime.fromtimestamp(start).strftime('%Y-%m-%d')
                 end_datetime=datetime.datetime.fromtimestamp(end).strftime('%Y-%m-%d')
-                data =get_data(asset,start_datetime,end_datetime,INTERVAL)
+                data= get_data(asset,start_datetime,end_datetime,INTERVAL)
                 data["name"] = asset
-                data = data.rename(columns={'Open': 'open','High': 'high', 'Low': 'low','Close': 'close', 'Adj Close': 'adjclose','Volume': 'volume'})
+                data =data.rename(columns={'Open': 'open','High': 'high', 'Low': 'low','Close': 'close', 'Adj Close': 'adjclose','Volume': 'volume'})
                 print(data)
-                data['date'] = data.index
+                data["date"]=data.index
                 data.to_sql('assets',engine,if_exists='append',index=False)
-                start += 604800 
-                end += 604800 
+                start = end + 86400
+                end += 604800
+    cursor.execute("""
+        SELECT extract(epoch from date) as last_date
+        FROM assets
+        ORDER BY date DESC
+        LIMIT 1;       
+                   """)
+    fetched =cursor.fetchone()
+    fetched_control = fetched[0]+604800
+    if fetched_control < TODAY:
+        for asset in ASSETS:
+            start = TODAY - 31104000 #360d
+            end = start+ 604800 #7d
+            print(asset)
+            while end <TODAY:
+                start_datetime=datetime.datetime.fromtimestamp(start).strftime('%Y-%m-%d')
+                end_datetime=datetime.datetime.fromtimestamp(end).strftime('%Y-%m-%d')
+                data= get_data(asset,start_datetime,end_datetime,INTERVAL)
+                data["name"] = asset
+                data =data.rename(columns={'Open': 'open','High': 'high', 'Low': 'low','Close': 'close', 'Adj Close': 'adjclose','Volume': 'volume'})
+                print(data)
+                data["date"]=data.index
+                data.to_sql('assets',engine,if_exists='append',index=False)
+                start += 604800
+                end += 604800
 
-
-if __name__ == "__main__":
- 	# Valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
-	a=time.time()
-	insert_data()
-	b= time.time()
-	print(b-a)
+if __name__ == '__main__':
+    a =time.time()
+    insert_data()
+    b =time.time()
+    print(b-a)
