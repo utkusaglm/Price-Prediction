@@ -43,3 +43,20 @@ stock split
 actual return are the actual prices.
 
 dividens payments to make more resarhc.
+
+qq-plot(normal gaussian dist)
+inverse of cumlativedistfunc.
+95 percent of class <6feet tall
+
+qq-plot
+a plot of sample quantiles vs thr quantiles(assumed dist)
+![plot](src/images/quanta.png)
+prob plot
+quantiles are just the lines that divide data into equally sized groups
+
+![plot](src/images/plot-patterns.png)
+
+
+T-distribution
+fat tail
+
