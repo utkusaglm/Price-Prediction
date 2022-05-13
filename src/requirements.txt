@@ -1,3 +1,4 @@
 yfinance
 scipy
 statsmodels
+sklearn
