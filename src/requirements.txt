@@ -2,3 +2,9 @@ yfinance
 scipy
 statsmodels
 sklearn
+psycopg2-binary
+sqlalchemy
+psycopg2
+streamlit
+watchdog
+gym

@@ -43,14 +43,12 @@ symbols = ['MMM','ABT','ABBV','ACN','ATVI','AYI','ADBE','AMD','AAP','AES','AET',
 
 symbols.append('SPY')
 
-
-
 if not os.path.exists('data'):
   os.mkdir('data')
 
 for symbol in symbols:
   if not os.path.exists(f"data/{symbol}.csv"):
-    data = yf.download(symbol, start="2010-01-01", end="2018-12-31")
+    data = yf.download(symbol, start="2010-01-01", end="2022-1-1")
     if data.size > 0:
       data.to_csv(f"data/{symbol}.csv")
     else:

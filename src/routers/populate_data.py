@@ -4,18 +4,16 @@ from requests.sessions import InvalidSchema
 import yfinance as yf
 import time
 import datetime
-
 import psycopg2
 import psycopg2.extras
-
 from sqlalchemy import create_engine
 
 STOCKS = ["MSFT","AAPL","GOOG"]
 CRYPTO = ["BTC-USD","ETH-USD"]
 ASSETS = STOCKS + CRYPTO
-
 #TODO:CONFIG DISARI ALINICAK
 #TODO: ASYNCPG İLE YAPILICAK
+
 class Config:
     DB_HOST ='localhost'
     DB_USER ='postgres'
@@ -32,7 +30,7 @@ cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 engine = create_engine(f'postgresql://{config.DB_USER}:{config.DB_PASS}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}')
 
 TODAY = time.time() 
-INTERVAL = '1d'
+INTERVAL = '1m'
 
 
 def get_data(name,st,et,interval):
@@ -66,7 +64,7 @@ def insert_data():
         FROM assets
         ORDER BY date DESC
         LIMIT 1;       
-                   """)
+        """)
     fetched =cursor.fetchone()
     fetched_control = fetched[0]+604800
     if fetched_control < TODAY:

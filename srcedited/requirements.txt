@@ -1,0 +1,11 @@
+yfinance
+scipy
+statsmodels
+sklearn
+psycopg2-binary
+sqlalchemy
+psycopg2
+altair
+watchdog
+streamlit
+mlflow
