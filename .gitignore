@@ -15,6 +15,6 @@ venv.bak/
 .ipynb_checkpoints
 mlflow.db
 existed_models
-mlflow-arifact-root
-1
+mlflow-arifact-root/
+# 1
 mlruns/

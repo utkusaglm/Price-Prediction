@@ -1,0 +1,12 @@
+CREATE DATABASE prices;
+ CREATE TABLE assets(
+  	name TEXT NOT NULL,
+     date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+     Open NUMERIC NOT NULL, 
+     High NUMERIC NOT NULL,
+     Low NUMERIC NOT NULL,
+     Close NUMERIC NOT NULL, 
+ 	AdjClose NUMERIC NOT NULL, 
+ 	Volume NUMERIC NOT NULL,
+ 	PRIMARY KEY (name, date))
+ 	;

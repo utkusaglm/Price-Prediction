@@ -59,6 +59,7 @@ def save_model(artifact_path, model, experiment_name, accuracy_train,accuracy_te
     client = MlflowClient(registry_uri= TRACKING_URL)
     mlflow.set_tracking_uri(TRACKING_URL)
     mlflow.set_experiment(experiment_name)
+    __import__('ipdb').set_trace()
     with mlflow.start_run() as run:
         run_num = run.info.run_id
         model_uri = "runs:/{run_id}/{artifact_path}".format(run_id=run_num, artifact_path=artifact_path)
@@ -66,7 +67,6 @@ def save_model(artifact_path, model, experiment_name, accuracy_train,accuracy_te
         mlflow.log_metric('accuracy_test', accuracy_test)
         # mlflow.log_metrics('roc_auc_score',roc_auc)
         mlflow.sklearn.log_model(model, artifact_path)
-
         mlflow.register_model(model_uri=model_uri,
                                   name=artifact_path)
     model_version_infos = client.search_model_versions("name = '%s'" % artifact_path)

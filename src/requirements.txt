@@ -9,3 +9,5 @@ altair
 watchdog
 streamlit
 mlflow
+ipdb
+matplotlib
