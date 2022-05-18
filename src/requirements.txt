@@ -5,6 +5,7 @@ sklearn
 psycopg2-binary
 sqlalchemy
 psycopg2
-streamlit
+altair
 watchdog
-gym
+streamlit
+mlflow
