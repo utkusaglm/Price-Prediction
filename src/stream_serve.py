@@ -9,15 +9,8 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import roc_curve
 import pickle
 import base64
-# from utils import (smiles_to_mol, mol_file_to_mol, 
-#                    draw_molecule, mol_to_tensor_graph, get_model_predictions)
 
-# ----------- General things
 st.title('Stock Market Analysis Using ML')
-valid_molecule = True
-loaded_molecule = None
-selection = None
-submit = None
 
 # ----------- Sidebar
 page = st.sidebar.selectbox('Page Navigation', ["Random_F", "Logistic_R"],key='page_nav')

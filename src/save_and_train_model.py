@@ -59,7 +59,6 @@ def save_model(artifact_path, model, experiment_name, accuracy_train,accuracy_te
     client = MlflowClient(registry_uri= TRACKING_URL)
     mlflow.set_tracking_uri(TRACKING_URL)
     mlflow.set_experiment(experiment_name)
-    __import__('ipdb').set_trace()
     with mlflow.start_run() as run:
         run_num = run.info.run_id
         model_uri = "runs:/{run_id}/{artifact_path}".format(run_id=run_num, artifact_path=artifact_path)
@@ -180,6 +179,10 @@ def train_columns(df,sym=SYMBOLS):
         train_columns = [list(c)[0] for c in df.columns.values if symbol in str(c)]
         train_columns.extend([f'{c_name}_Shifted_Log_Return' for c_name in sym if c_name != symbol] )
         train_columns.remove(f'{symbol}_Shifted_Log_Return')
+        train_columns.remove(f'{symbol}_Log_Return')
+        train_columns.remove(f'{symbol}_Return')
+        train_columns.remove(f'{symbol}_Close')
+        train_columns.remove(f'{symbol}_Prev_close')
         train_ready[symbol] = train_columns
     return train_ready
 
@@ -188,16 +191,21 @@ def random_forest(df, t_columns, symbol):
     """ random_forest """
     df_v = df[t_columns]
     df_l =df[f'{symbol}_Shifted_Log_Return']
-    Ntest = int(len(df_l)*70/100)
+    df_v=df_v.iloc[: , :-2]
+    Ntest = int(len(df_l)*80/100)
     train_msft = df_v.iloc[1:Ntest]
     test_msft = df_v.iloc[Ntest:-1]
     train_msft_l = df_l.iloc[1:Ntest]
     test_msft_l = df_l.iloc[Ntest:-1]
     Ctrain = (train_msft_l>0)
     Ctest = (test_msft_l>0)
-    
+    params= {'max_depth': 2048,
+    'max_features': 5,
+    'min_samples_leaf': 4,
+    'min_samples_split': 4,
+    'n_estimators': 800}
     # load_model= pickle.load(open('./mlflow-artifact-root/2/00a7a15ca663466daaa2834abcf5f141/artifacts/random_forest/model.pkl','rb'))
-    model = RandomForestClassifier(random_state=10)
+    model = RandomForestClassifier(**params)
     model.fit(train_msft, Ctrain)
     # print(f'Train_Score = {model.score(train_msft, Ctrain)}, Test_Score = {model.score(test_msft,Ctest)}')
     y_test_pp = model.predict_proba(test_msft)
@@ -219,7 +227,7 @@ def logistic_reg(df, t_columns, symbol):
     """ random_forest """
     df_v = df[t_columns]
     df_l =df[f'{symbol}_Shifted_Log_Return']
-    Ntest = int(len(df_l)*70/100)
+    Ntest = int(len(df_l)*80/100)
     train_msft = df_v.iloc[1:Ntest]
     test_msft = df_v.iloc[Ntest:-1]
     train_msft_l = df_l.iloc[1:Ntest]
