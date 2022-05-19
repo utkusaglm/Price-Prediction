@@ -274,6 +274,7 @@ def make_data_ready(df, model_name):
         if s != model_name:
             t_columns[m].append(f'{s}_Shifted_Log_Return')
             df[f'{s}_Shifted_Log_Return'] = np.array([0 for i in range(0,len(df))])
+    t_columns[m] = t_columns[m][:-2]
     return df,t_columns
 
 

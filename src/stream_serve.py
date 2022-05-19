@@ -47,6 +47,7 @@ def main():
                 st.write(st.session_state.test_data)
                 df,t_columns = make_data_ready(d_f_e, st.session_state.which_model_test)
                 df_v = df[t_columns[st.session_state.which_model_test]].dropna()
+                df_v = df_v.iloc[:-1]
                 df_l =df[f'{st.session_state.which_model_test}_Shifted_Log_Return'].dropna()
                 test_msft = df_v
                 test_msft_l = df_l

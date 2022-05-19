@@ -80,8 +80,29 @@ There are different type of returns and they can be used to determine whether a 
 - **roc_auc_score is 0.81 in below image.**
  ![plot](src/images/082.png)
 
+# Model deployment
+![plot](src/images/structure.png)
+- **The Main structure of the project is shown in the above figure.**
+- **As you can see in the figure, after traning the models, models are uploaded to the loca ldatabase with MLflow.**
+- **MLflow is an open source platform for managing the end-to-end machine learning lifecycle. It tackles four primary functions:  Tracking experiments to record and compare parameters and results (MLflow Tracking). Packaging ML code in a reusable, reproducible form in order to share with other data scientists or transfer to production (MLflow Projects). Managing and deploying models from a variety of ML libraries to a variety of model serving and inference platforms (MLflow Models). Providing a central model store to collaboratively manage the full lifecycle of an MLflow Model, including model versioning, stage transitions, and annotations (MLflow Model Registry).**
+![plot](src/images/mlflow.png)
+- **The above figure is belongs to the project. As you can see, we can see the models version, accuracy scores, model trained time.**
 
-
+# Streamlit
+- **Streamlit is an open-source Python library that makes it easy to create and share, custom web apps for machine learning and data science.**
+![plot](src/images/streamlitmain.png)
+- **The above picture shows the main screen of the application.**
+- **In the left side of the screen there is a page navigation. It consist of two different models at the moment.**
+- **Input text area is located at center of the screen. There are three options.**
+- **If we want to train model with the latest data, we need to write "Train" to the input text area.**
+![plot](src/images/train_streamlit.png)
+- **After we write train and select which stock model ratings we want to see, Latest data and accuracy metrics are shown. Also, the roc curve is drawn.**
+- **If we want to Test the model with custom input, we need to write Test into input text area.**
+![plot](src/images/test_streamlit.png)
+- **A .csv file can be uploaded to the project as shown in the figure and the existed model performance can be seen.**
+![plot](src/images/accuracy_test.png)
+- **Models can be download by writing Download to input text area.**
+![plot](src/images/download_steam.png)
 
 # Reinforcement Learning
 in supervised learning there is no any time
