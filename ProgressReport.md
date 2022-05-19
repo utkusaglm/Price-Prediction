@@ -109,67 +109,8 @@ There are different type of returns and they can be used to determine whether a 
 ![plot](src/images/download_steam.png)
 - **[Test Video Link](https://youtu.be/XBuOoy762Vc)**
 
-# Reinforcement Learning
-in supervised learning there is no any time
-
-rl is more like a loop
-we want to achine a goal
-stare rreward actions agent environment
-it can plan for the future.
-
-labeled datasets are made by Humans!
-stock-markect is non-episodic envin
-it can go on forever there is no end
-ih has an infinte horizon
-
-states,actions,rewards.
-
-actions needs to pritorize
-
-maximate its reward.
-
-state can be derived from current and past observations
-
-
-states can be discrete or continuous
-Discrete example:
-    Tic-Tac_toe- State is a specific conf
-
-continuous example:
-    robot with sensors-camerea,microphone,gyroscoppe
-
-policies:
-    how do you represent a policy in math?
-    policy: what the agent uses to determine what action to perform(given a state)
-![plot](src/images/policy.png)
-    policy yields an action only the current state does not use any comb of past states or any rewards.
-    policy is like a function
-    input is the state s
-    output is an action
-    this aprroach is somwhat limited
-    we cannot have an infinite number of dict keys
-    it does not allows ut to explote te env
-    think of training an agent like teachin a baby
-    it must try new things to build intuition
-    makes sense for policies to be stochastic/random.
-
-    more general way to represent policy is with probability
-
-    policy
-
-    epsilon greedy
-    def get_actions(s):
-    if random()< epsilon:
-        a=samfle from action space
-    else:
-    a = fized ppolicsy[s]
-    return a
-
-  
-    ![plot](src/images/policy_prob.png)
-
-    agent can plan for the future by gaining expreince
-    it will try to maximize future rewards.
-
-    markov decision process
-    
+# Conclusion
+- The project offer an End-to-end machine learning solution.(Data collection, training, deployment)
+- The project has a web app and it can easily deployed to the cloud.(Streamlit, Heroku)
+- Model Tracking can be done.
+- Accuracy score mainly dependa on the features for stock price prediction.
