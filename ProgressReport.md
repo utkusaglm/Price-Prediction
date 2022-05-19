@@ -16,18 +16,19 @@
 # The challenges in the data part.
 
 1. **Missing data**: There is no any trading for stock data in weekends. There are some strategies to fill the price values for that days. Backfill and Forwardfill are most common ones and I used both of them.
-2. **Dailty Data**: Yfinance library has different options for obtaining data. I used 5 minutes interval options. To get daily and updated data I wrote a script.
+2. **Daily Data**: Yfinance library has different options for obtaining data. I used 5 minutes interval options.
 
 3. **Feature Engineering**: I generated almost 20 new features from the raw price data. RSI, VWAP, Moving Averages and other indicators were generated.
 
-4. **Storage:** TimeScale database mainly used for the storage purpose. It is suitable for the stock data because It has greate time-series features.
+4. **Storage:** TimeScale database mainly used for the storage purpose. It is suitable for the stock data because It has time-series features.
 
 The other challanges and will be mentioned after Return parameters part.
 # Return Parameters
 **There are different kinds of returns and examples  are given below.**
 
 * **Net return is equal to :** 
-![plot](src/images/normal_return.png)  
+    
+    ![plot](src/images/normal_return.png)  
 * **Net return can be shown as below respect to the time**:
 
     ![plot](src/images/time_return.png)
@@ -57,12 +58,12 @@ There are different type of returns and they can be used to determine whether a 
 # Machine Learning Models
 - **During the research time, I tried different ML algorithms and most of them were not succesfull to predict. Most of the time computer scientist see machine learning models as black boxes. Although machine learning models are mostly black boxes and most of the time just accuracy metrics are important for the scientists, if we understand the reasons behind predictions, the untrustworthy models can be transformed into trusty ones.**
 - **I used three different ML models(Linear Regression, Logistic Regression and Random Forest)**
-- **The advanced model is not mean sucessful predictions the data is the most important thing.** 
+- **The advanced model is not mean sucessful predictions. The most important thing is data.** 
 ## Random Forest
 -----------
-- **First, the data was prepared as shown in the transformed data part.**
+- **First, the data were prepared as shown in the transformed data part.**
 
-- **Second, I trained the model 70 percent of the data and validate it on the remaning 30 percent .**
+- **Second, I trained the model with 70 percent of the data and validate it on the remaning 30 percent .**
 
 - **The third step is the take roc_auc_score to see performance of the model.**
  ![plot](src/images/079.png)
@@ -83,8 +84,8 @@ There are different type of returns and they can be used to determine whether a 
 # Model deployment
 ![plot](src/images/structure.png)
 - **The Main structure of the project is shown in the above figure.**
-- **As you can see in the figure, after traning the models, models are uploaded to the loca ldatabase with MLflow.**
-- **MLflow is an open source platform for managing the end-to-end machine learning lifecycle. It tackles four primary functions:  Tracking experiments to record and compare parameters and results (MLflow Tracking). Packaging ML code in a reusable, reproducible form in order to share with other data scientists or transfer to production (MLflow Projects). Managing and deploying models from a variety of ML libraries to a variety of model serving and inference platforms (MLflow Models). Providing a central model store to collaboratively manage the full lifecycle of an MLflow Model, including model versioning, stage transitions, and annotations (MLflow Model Registry).**
+- **As you can see in the figure, after traning the models, models are uploaded to the local database with MLflow.**
+- **MLflow is an open source platform for managing the end-to-end machine learning lifecycle. It tackles three primary functions: Model tracking, deploying and managing.**
 ![plot](src/images/mlflow.png)
 - **The above figure is belongs to the project. As you can see, we can see the models version, accuracy scores, model trained time.**
 
@@ -98,11 +99,15 @@ There are different type of returns and they can be used to determine whether a 
 ![plot](src/images/train_streamlit.png)
 - **After we write train and select which stock model ratings we want to see, Latest data and accuracy metrics are shown. Also, the roc curve is drawn.**
 - **If we want to Test the model with custom input, we need to write Test into input text area.**
+- **[Train Video Link](https://youtu.be/bv78nMkvdy8)**
+
 ![plot](src/images/test_streamlit.png)
 - **A .csv file can be uploaded to the project as shown in the figure and the existed model performance can be seen.**
 ![plot](src/images/accuracy_test.png)
+- **[Test Video Link](https://youtu.be/THKfDwFoV7o)**
 - **Models can be download by writing Download to input text area.**
 ![plot](src/images/download_steam.png)
+- **[Test Video Link](https://youtu.be/XBuOoy762Vc)**
 
 # Reinforcement Learning
 in supervised learning there is no any time
