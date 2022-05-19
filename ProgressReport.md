@@ -114,3 +114,9 @@ There are different type of returns and they can be used to determine whether a 
 - The project has a web app and it can easily deployed to the cloud.(Streamlit, Heroku)
 - Model Tracking can be done.
 - Accuracy score mainly dependa on the features for stock price prediction.
+
+# References
+- [Financial Engineering and Artificial Intelligence in Python](https://www.udemy.com/course/ai-finance/)
+- [Stock Closing Price Prediction using Machine Learning Techniques](https://www.sciencedirect.com/science/article/pii/S1877050920307924/)
+- 
+ 
