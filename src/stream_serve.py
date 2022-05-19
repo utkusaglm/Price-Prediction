@@ -12,12 +12,8 @@ import base64
 
 st.title('Stock Market Analysis Using ML')
 
-# ----------- Sidebar
+# Sidebar
 page = st.sidebar.selectbox('Page Navigation', ["Random_F", "Logistic_R"],key='page_nav')
-
-# st.sidebar.markdown("""---""")
-# st.sidebar.write("Created by [DeepFindr](https://www.youtube.com/channel/UCScjF2g0_ZNy0Yv3KbsbR7Q)")
-# st.sidebar.image("assets/logo.png", width=100)
 
 def main():
     if st.session_state.page_nav =='Random_F':
@@ -125,7 +121,4 @@ def main():
                 b64 = base64.b64encode(output_model).decode()
                 href = f'<a href="data:file/output_model;base64,{b64}" download="myfile.pkl">Download Trained Model .pkl File</a>'
                 st.markdown(href, unsafe_allow_html=True)
-
-
-
 main()
