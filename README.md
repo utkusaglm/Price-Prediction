@@ -14,8 +14,9 @@
  --default-artifact-root ./mlflow-artifact-root \
  --host 0.0.0.0
 
- - open mlflow and create two experiment: 
+ - open mlflow and create two experiment: random_f, logistic_f
 
 - streamlit run stream_serve.py
 
-# GOALS
+# GOAL
+- making a complete solution for price prediction problem.
