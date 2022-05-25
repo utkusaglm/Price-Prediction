@@ -21,18 +21,15 @@ from sklearn.preprocessing import StandardScaler
 import mlflow
 from mlflow.tracking import MlflowClient
 from mlflow.entities.model_registry.model_version_status import ModelVersionStatus
-
-TRACKING_URL = "http://localhost:5000"
+TRACKING_URL = config.TRACKING_URL
+SYMBOLS = config.SYMBOLS
 
 query = """select * from assets ORDER BY date ASC;"""
 connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user= config.DB_USER, password=config.DB_PASS)
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 engine = create_engine(f'postgresql://{config.DB_USER}:{config.DB_PASS}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}')
 
-
-
 df = pd.read_sql_query(query,con=engine)
-SYMBOLS = ['MSFT','AAPL','NVDA','UBER']
 IS_INVESTED = False
 
 def wait_model_transition(model_name, model_version, stage):
@@ -55,7 +52,12 @@ def wait_model_transition(model_name, model_version, stage):
 
 
 def save_model(artifact_path, model, experiment_name, accuracy_train,accuracy_test,roc_auc):
-    """save_model"""
+    """
+    save model using mlflow.
+    database at src/mlflow.db
+    mlflowids at src/mlflow-artifcat-root
+    """
+    #connect to client and set experiment.
     client = MlflowClient(registry_uri= TRACKING_URL)
     mlflow.set_tracking_uri(TRACKING_URL)
     mlflow.set_experiment(experiment_name)
@@ -64,13 +66,12 @@ def save_model(artifact_path, model, experiment_name, accuracy_train,accuracy_te
         model_uri = "runs:/{run_id}/{artifact_path}".format(run_id=run_num, artifact_path=artifact_path)
         mlflow.log_metric('accuracy_train', accuracy_train)
         mlflow.log_metric('accuracy_test', accuracy_test)
-        # mlflow.log_metrics('roc_auc_score',roc_auc)
         mlflow.sklearn.log_model(model, artifact_path)
         mlflow.register_model(model_uri=model_uri,
                                   name=artifact_path)
     model_version_infos = client.search_model_versions("name = '%s'" % artifact_path)
     new_model_version = max([model_version_info.version for model_version_info in model_version_infos])
-    # Add a description
+    # update model version with latest version
     client.update_model_version(
     name=artifact_path,
     version=new_model_version,
@@ -135,7 +136,6 @@ def add_indicators(df):
     df['volume14_34_var'] = (df['volume14']/df['volume34'])-1
     df = add_vwap(df)
     return df
-
 
 def drop_na_bf_fill(df):
     """drop_na_bf_fill"""

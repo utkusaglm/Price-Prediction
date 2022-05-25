@@ -11,3 +11,4 @@ streamlit
 mlflow
 ipdb
 matplotlib
+pydantic
