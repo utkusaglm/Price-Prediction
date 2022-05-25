@@ -1,22 +1,23 @@
-from pydoc import cli
+import time
 import warnings
-warnings.filterwarnings('ignore')
-from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import roc_curve
-import time
-import mlflow
 from mlflow.tracking import MlflowClient
 from mlflow.entities.model_registry.model_version_status import ModelVersionStatus
+import mlflow
 import config
+warnings.filterwarnings('ignore')
 
-TRACKING_URL = config.TRACKING_URL 
+TRACKING_URL = config.TRACKING_URL
 
 
 class Model:
-    
-    def __init__(self,df,client) -> None:
+    """
+    save and train functions for models
+    """
+    def __init__(self,df) -> None:
         self.df = df
         self.client = MlflowClient(registry_uri=TRACKING_URL)
 
@@ -37,7 +38,7 @@ class Model:
                 )
                 break
             time.sleep(1)
-          
+
     def save_model(self,artifact_path, model, experiment_name, accuracy_train,accuracy_test,roc_auc):
         """
         save model using mlflow.
@@ -72,7 +73,7 @@ class Model:
             # Move the latest model to Staging (could also be Production)
             self.wait_model_transition(artifact_path, new_model_version, "Staging")
 
-    
+
     def random_forest(self,t_columns, symbol):
         """ random_forest """
         df_v = self.df[t_columns]

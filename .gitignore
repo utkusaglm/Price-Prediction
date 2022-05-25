@@ -16,5 +16,4 @@ venv.bak/
 mlflow.db
 existed_models
 mlflow-arifact-root/
-# 1
 mlruns/
