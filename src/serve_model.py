@@ -20,17 +20,6 @@ from data_related import populate_data
 from save_and_train_model import train_model
 import mlflow.sklearn
 
-TRACKING_URL = "http://localhost:5000"
-
-# query = """select * from assets ORDER BY date ASC;"""
-# connection = psycopg2.connect(host=config.DB_HOST, database=config.DB_NAME, user= config.DB_USER, password=config.DB_PASS)
-# cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-# engine = create_engine(f'postgresql://{config.DB_USER}:{config.DB_PASS}@{config.DB_HOST}:{config.DB_PORT}/{config.DB_NAME}')
-
-
-# df = pd.read_sql_query(query,con=engine)
-# SYMBOLS = ['MSFT','AAPL','NVDA','UBER']
-# IS_INVESTED = False
 
 def insert_new_data():
     populate_data.insert_data()
