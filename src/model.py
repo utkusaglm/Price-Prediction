@@ -48,8 +48,10 @@ class Model:
         #connect to client and set experiment.
         #workarround
         mlflow.set_tracking_uri(TRACKING_URL)
+        print(mlflow.list_experiments())
         try:
             mlflow.create_experiment(experiment_name)
+            mlflow.create_experiment('random_f')
         except Exception as e:
             print(e)
         client = self.client
