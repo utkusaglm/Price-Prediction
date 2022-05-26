@@ -46,6 +46,7 @@ class Model:
         mlflowids at src/mlflow-artifcat-root
         """
         #connect to client and set experiment.
+        #workarround
         try:
             mlflow.create_experiment('random_f')
             mlflow.create_experiment('logistic_f')
