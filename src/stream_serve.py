@@ -2,13 +2,14 @@ from cgitb import text
 from distutils.command.upload import upload
 import streamlit as st
 from serve_model import insert_new_data,train_model_and_save,serve_model
-from save_and_train_model import make_data_ready
+from train_and_save_model import make_data_ready
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import roc_curve
 import pickle
 import base64
+import numpy as np
 
 st.title('Stock Market Analysis Using ML')
 
@@ -25,7 +26,7 @@ def main():
                 insert_new_data()
                 df,r_f,l_r = train_model_and_save()
                 st.markdown('Latest Data')
-                st.dataframe(df.head())
+                st.dataframe(df.tail())
                 st.write('Train Finished')
                 accuracy_train = st.write(f" accuracy_train: { r_f[st.session_state.which_model ][0] }")
                 accuracy_test = st.write(f" accuracy_test: { r_f[st.session_state.which_model ][1] }") 
@@ -37,13 +38,14 @@ def main():
             st.file_uploader(label='Try model with the data your own (MSFT, AAPL, NVDA, UBER) ',type='csv',key='test_data')
             d_f_e = pd.read_csv('MSFT.csv')
             st.write('Example input data')
-            st.dataframe(d_f_e.head())
+            st.dataframe(d_f_e.tail())
             st.text_input('Write one of them (MSFT, AAPL, NVDA, UBER) to see score',key='which_model_test')
             if  st.session_state.which_model_test in ['MSFT', 'AAPL', 'NVDA', 'UBER'] :
                 st.write(st.session_state.test_data)
+                #apple,nvdia,uber
                 df,t_columns = make_data_ready(d_f_e, st.session_state.which_model_test)
                 df_v = df[t_columns[st.session_state.which_model_test]].dropna()
-                df_v = df_v.iloc[:-1]
+                # df_v = df_v.iloc[:-1]
                 df_l =df[f'{st.session_state.which_model_test}_Shifted_Log_Return'].dropna()
                 test_msft = df_v
                 test_msft_l = df_l

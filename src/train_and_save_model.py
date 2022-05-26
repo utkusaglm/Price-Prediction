@@ -39,5 +39,5 @@ def make_data_ready(df_loaded, model_name):
         if s != model_name:
             train_columns[m].append(f'{s}_Shifted_Log_Return')
             df_loaded[f'{s}_Shifted_Log_Return'] = np.array([0 for i in range(0,len(df_loaded))])
-    train_columns[m] = train_columns[m][:-2]
+    train_columns[m] = train_columns[m]
     return df_loaded,train_columns

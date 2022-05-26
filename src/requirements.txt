@@ -11,4 +11,4 @@ streamlit
 mlflow
 ipdb
 matplotlib
-pydantic
+python-dotenv

@@ -1,34 +1,24 @@
-from statistics import mode
-import warnings
-warnings.filterwarnings('ignore')
-from sqlalchemy import create_engine
-import psycopg2
-import psycopg2.extras
-import config
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
-import pickle
-import time
-from mlflow import pyfunc
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
 import mlflow
-from mlflow.tracking import MlflowClient
-from mlflow.entities.model_registry.model_version_status import ModelVersionStatus
-from data_related import populate_data
-from save_and_train_model import train_model
 import mlflow.sklearn
+import config
+from data_related import populate_data
+from train_and_save_model import train_model
+from model import Model
 
+TRACKING_URL = config.TRACKING_URL
+model_c = Model()
 
 def insert_new_data():
-    populate_data.insert_data()
+    """if one week passed from last download run"""
+    populate_data.populate_data()
 
 def train_model_and_save():
+    """train model"""
     return train_model()
 
 def serve_model(model_type, symbol):
-    client = MlflowClient(registry_uri=TRACKING_URL)
+    """serve_model"""
+    client = model_c.client
     mlflow.set_tracking_uri(TRACKING_URL)
     if model_type == 'r_f':
         symbol += 'r_f'
@@ -41,9 +31,4 @@ def serve_model(model_type, symbol):
         timestamp = timestamp.split('=')[1]
         source = source.split('=')[1].replace("'","")
     model = mlflow.sklearn.load_model(source)
-    
     return model
-    
-
-
-# if __name__ == '__main__':

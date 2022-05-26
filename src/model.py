@@ -17,7 +17,7 @@ class Model:
     """
     save and train functions for models
     """
-    def __init__(self,df) -> None:
+    def __init__(self,df=None) -> None:
         self.df = df
         self.client = MlflowClient(registry_uri=TRACKING_URL)
 
@@ -78,7 +78,7 @@ class Model:
         """ random_forest """
         df_v = self.df[t_columns]
         df_l = self.df[f'{symbol}_Shifted_Log_Return']
-        df_v=df_v.iloc[: , :-2]
+        # df_v=df_v.iloc[: , :-2]
         n_test = int(len(df_l)*80/100)
         train_msft = df_v.iloc[1:n_test]
         test_msft = df_v.iloc[n_test:-1]
@@ -106,6 +106,7 @@ class Model:
         """ random_forest """
         df_v = self.df[t_columns]
         df_l = self.df[f'{symbol}_Shifted_Log_Return']
+        # df_v=df_v.iloc[: , :-2]
         n_test = int(len(df_l)*80/100)
         train_msft = df_v.iloc[1:n_test]
         test_msft = df_v.iloc[n_test:-1]
