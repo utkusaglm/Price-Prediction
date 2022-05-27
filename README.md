@@ -1,5 +1,5 @@
 # price-prediction
-# You Can try from this link
+# Try !
 https://pprediction.herokuapp.com
 # Preconditions/Run below commands on terminal.
     docker pull timescale/timescaledb-ha:pg14-latest
