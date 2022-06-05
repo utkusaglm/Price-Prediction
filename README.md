@@ -83,7 +83,7 @@ There are different type of returns and they can be used to determine whether a 
 
 - **The above one line is an example of columns that I used to classify the stock data. There are 13 columns for each stocks.**
 - **To determine the stock is profit or not. I took log return values of every stock in a daily basis. I used log return because usually stock returns in daily basis are very small.**
-- **Features have different effects on the learining phase and the most effective features are MSFT_Sma9_var, MSFT_Sma180_var and other _var features because they are propotional with the close and volume columns.**
+- **Features have different effects on the learning phase and the most effective features are MSFT_Sma9_var, MSFT_Sma180_var and other _var features because they are proportional with the close and volume columns.**
 
 # Machine Learning Models
 - **During the research time, I tried different ML algorithms and most of them were not succesfull to predict. Most of the time computer scientist see machine learning models as black boxes. Although machine learning models are mostly black boxes and most of the time just accuracy metrics are important for the scientists, if we understand the reasons behind predictions, the untrustworthy models can be transformed into trusty ones.**
