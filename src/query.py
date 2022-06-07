@@ -4,17 +4,17 @@ import pandas as pd
 import config
 import streamlit as st
 
-# HOST = config.DB_HOST
-# DATABASE = config.DB_NAME
-# USER = config.DB_USER
-# PASSWORD = config.DB_PASS
-# PORT = config.DB_PORT
+HOST = config.DB_HOST
+DATABASE = config.DB_NAME
+USER = config.DB_USER
+PASSWORD = config.DB_PASS
+PORT = config.DB_PORT
 
-HOST = st.secrets["postgres"]['host']
-DATABASE = st.secrets["postgres"]['dbname']
-USER = st.secrets["postgres"]['user']
-PASSWORD = st.secrets["postgres"]['password']
-PORT = st.secrets["postgres"]['port']
+# HOST = st.secrets["postgres"]['host']
+# DATABASE = st.secrets["postgres"]['dbname']
+# USER = st.secrets["postgres"]['user']
+# PASSWORD = st.secrets["postgres"]['password']
+# PORT = st.secrets["postgres"]['port']
 
 
 QUERY = """select * from assets ORDER BY date ASC;"""
