@@ -46,16 +46,8 @@ class Model:
         mlflowids at src/mlflow-artifcat-root
         """
         #connect to client and set experiment.
-        #workarround
-        mlflow.set_tracking_uri(TRACKING_URL)
-        try:
-            mlflow.create_experiment(experiment_name)
-            print(mlflow.list_experiments())
-        except Exception as e:
-            print("-----------------")
-            print(e)
-            print("-----------------")
         client = self.client
+        mlflow.set_tracking_uri(TRACKING_URL)
         mlflow.set_experiment(experiment_name)
         with mlflow.start_run() as run:
             run_num = run.info.run_id

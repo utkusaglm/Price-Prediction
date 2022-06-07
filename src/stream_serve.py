@@ -47,7 +47,7 @@ def main():
                 df_v = df[t_columns[st.session_state.which_model_test]].dropna()
                 # df_v = df_v.iloc[:-1]
                 df_l =df[f'{st.session_state.which_model_test}_Shifted_Log_Return'].dropna()
-                test_msft = df_v
+                test_msft = df_v.iloc[:-1]
                 test_msft_l = df_l
                 Ctest = (test_msft_l>0)
                 model= serve_model('r_f',st.session_state.which_model_test)

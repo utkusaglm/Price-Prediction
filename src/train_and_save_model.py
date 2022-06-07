@@ -41,3 +41,5 @@ def make_data_ready(df_loaded, model_name):
             df_loaded[f'{s}_Shifted_Log_Return'] = np.array([0 for i in range(0,len(df_loaded))])
     train_columns[m] = train_columns[m]
     return df_loaded,train_columns
+if __name__ =='__main__':
+    train_model()
