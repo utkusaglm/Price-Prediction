@@ -35,15 +35,19 @@ def main():
                 ax = plt.plot(r_f[st.session_state.which_model ][3],r_f[st.session_state.which_model ][4])
                 st.pyplot(fig)
         elif st.session_state.trained_model =='Test':
-            st.file_uploader(label='Try model with the data your own (MSFT, AAPL, NVDA, UBER) ',type='csv',key='test_data')
-            d_f_e = pd.read_csv('MSFT.csv')
-            st.write('Example input data')
-            st.dataframe(d_f_e.tail())
+            upload_file= st.file_uploader(label='Try model with the data your own (MSFT, AAPL, NVDA, UBER) ',type='csv',key='test_data')
+            try:
+                d_f_e = pd.read_csv('MSFT.csv')
+                st.write('Example input data')
+                st.dataframe(d_f_e.tail())
+            except:
+                pass
             st.text_input('Write one of them (MSFT, AAPL, NVDA, UBER) to see score',key='which_model_test')
             if  st.session_state.which_model_test in ['MSFT', 'AAPL', 'NVDA', 'UBER'] :
                 st.write(st.session_state.test_data)
                 #apple,nvdia,uber
-                df,t_columns = make_data_ready(d_f_e, st.session_state.which_model_test)
+                loaded_data = pd.read_csv(upload_file)
+                df,t_columns = make_data_ready(loaded_data, st.session_state.which_model_test)
                 df_v = df[t_columns[st.session_state.which_model_test]].dropna()
                 # df_v = df_v.iloc[:-1]
                 df_l =df[f'{st.session_state.which_model_test}_Shifted_Log_Return'].dropna()
