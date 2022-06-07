@@ -17,8 +17,6 @@ PASSWORD = st.secrets["postgres"]['password']
 PORT = st.secrets["postgres"]['port']
 
 
-st.secrets["postgres"]['host']
-
 QUERY = """select * from assets ORDER BY date ASC;"""
 CREATE_TABLE = """
     CREATE TABLE assets(
