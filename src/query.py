@@ -42,7 +42,6 @@ class GetDataFromDatabase:
 
     def __init__(self,query) -> None:
         self.query = query
-        __import__('ipdb').set_trace()
         self.engine = create_engine(f'postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}')
         # self.engine = create_engine(**st.secrets["postgres"])
         self.connection = psycopg2.connect(f"postgres://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}")
