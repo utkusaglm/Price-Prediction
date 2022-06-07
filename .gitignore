@@ -17,3 +17,4 @@ mlflow.db
 existed_models
 mlflow-arifact-root/
 mlruns/
+.streamlit/secrets.toml
