@@ -112,7 +112,7 @@ There are different type of returns and they can be used to determine whether a 
  ![plot](src/images/082.png)
 
 # Model deployment
-![plot](src/images/structure.png)
+![diagram2](https://user-images.githubusercontent.com/58150504/172575941-5962f230-0688-4033-9071-57f78a4ab372.png)
 - **The Main structure of the project is shown in the above figure.**
 - **As you can see in the figure, after traning the models, models are uploaded to the local database with MLflow.**
 - **MLflow is an open source platform for managing the end-to-end machine learning lifecycle. It tackles three primary functions: Model tracking, deploying and managing.**
